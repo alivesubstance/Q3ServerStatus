@@ -12,6 +12,12 @@ repositories {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     compile "org.telegram:telegrambots:3.5"
+
+    compile "org.slf4j:slf4j-log4j12:1.7.26"
+    compile "org.apache.logging.log4j:log4j-api:2.11.2"
+    compile "org.apache.logging.log4j:log4j-core:2.11.2"
+
+    testCompile "junit:junit:4.12"
 }
 
 compileKotlin {

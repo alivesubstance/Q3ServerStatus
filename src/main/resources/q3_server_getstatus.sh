@@ -1,10 +1,7 @@
 #!/bin/bash
 
-HOST = $1
-PORT = $2
-
-echo "host $HOST"
-echo "port $PORT"
+HOST=$1
+PORT=$2
 
 # send 4 ff bytes with getstatus command
 # -4 using IPv4 protocol

@@ -3,6 +3,9 @@
 HOST = $1
 PORT = $2
 
+echo "host $HOST"
+echo "port $PORT"
+
 # send 4 ff bytes with getstatus command
 # -4 using IPv4 protocol
 # -u by UDP

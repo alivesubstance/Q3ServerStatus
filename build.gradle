@@ -11,7 +11,10 @@ repositories {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-    compile "org.telegram:telegrambots:3.5"
+
+    implementation "com.squareup.okhttp3:okhttp:3.14.2"
+    implementation "com.github.pengrad:java-telegram-bot-api:4.2.0"
+//    compile "org.telegram:telegrambots:3.5"
 
     compile "org.slf4j:slf4j-log4j12:1.7.26"
     compile "org.apache.logging.log4j:log4j-api:2.11.2"

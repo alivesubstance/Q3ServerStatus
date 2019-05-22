@@ -1,31 +1,13 @@
 package q3
 
-import com.pengrad.telegrambot.TelegramBot
-import okhttp3.OkHttpClient
 import org.telegram.telegrambots.ApiContextInitializer
-
-
-//fun main(args: Array<String>) {
-//    val telegramBot = TelegramBot.Builder("735603182:AAF_WMAzBOa1vLxELNDt4EilNE_sHF3OG_4")
-//        .okHttpClient(createOkHttpClient())
-//        .build()
-//
-//    telegramBot.
-//}
-//
-//private fun createOkHttpClient(): OkHttpClient {
-//    //TODO configure timeouts
-//    return OkHttpClient()
-//}
-
 
 import org.telegram.telegrambots.api.objects.Update
 import org.telegram.telegrambots.bots.TelegramLongPollingBot
 import org.telegram.telegrambots.TelegramBotsApi
 import org.telegram.telegrambots.exceptions.TelegramApiException
-
-
-
+import com.oracle.util.Checksums.update
+import org.telegram.telegrambots.api.methods.send.SendMessage
 
 
 object Q3ServerStatusBot: TelegramLongPollingBot() {
@@ -34,17 +16,28 @@ object Q3ServerStatusBot: TelegramLongPollingBot() {
 
     override fun getBotUsername() = "q3serverstatus_bot"
 
-    override fun onUpdateReceived(update: Update?) {
+    override fun onUpdateReceived(update: Update) {
+        // We check if the update has a message and the message has text
+        if (update.hasMessage() && update.message.hasText()) {
+            val message = SendMessage() // Create a SendMessage object with mandatory fields
+                .setChatId(update.message.chatId)
+                .setText(update.message.text)
+            try {
+                execute(message) // Call method to send the message
+            } catch (e: TelegramApiException) {
+                e.printStackTrace()
+            }
 
+        }
     }
 
 }
 
 
 fun main(args: Array<String>) {
-
     ApiContextInitializer.init();
     val botsApi = TelegramBotsApi()
+
     try {
         botsApi.registerBot(Q3ServerStatusBot)
     } catch (e: TelegramApiException) {

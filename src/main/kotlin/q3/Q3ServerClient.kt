@@ -1,5 +1,6 @@
 package q3
 
+import com.google.common.annotations.VisibleForTesting
 import org.slf4j.LoggerFactory
 import java.io.IOException
 import java.util.concurrent.TimeUnit
@@ -7,7 +8,7 @@ import java.util.concurrent.TimeUnit
 class Q3ServerClient {
 
     companion object {
-        val log = LoggerFactory.getLogger(Q3ServerClient::class.java)
+        val log = LoggerFactory.getLogger(Q3ServerClient::class.java)!!
         const val MAPNAME_OPTION: String = "mapname"
     }
 
@@ -19,6 +20,7 @@ class Q3ServerClient {
         return parseResponse(q3ServerResponse)
     }
 
+    @VisibleForTesting
     fun parseResponse(q3ServerResponse: String): Q3ServerStatus {
         val lines = q3ServerResponse.split("\n")
         // first string is a server response marker, ignore it

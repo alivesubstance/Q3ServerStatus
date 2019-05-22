@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--This log4j2 configuration is used only until configDir is discovered-->
+<Configuration>
+    <Appenders>
+        <Console name="stderr" target="System.err" >
+            <PatternLayout pattern="%-5p %d{ISO8601} - %m [%t][%l]%n"/>
+            <Filters>
+                <ThresholdFilter level="WARN"/>
+            </Filters>
+        </Console>
+        <Console name="stdout" target="System.out">
+            <PatternLayout pattern="%-5p %d{ISO8601} - %m [%t][%l]%n"/>
+            <Filters>
+                <ThresholdFilter level="DEBUG"/>
+            </Filters>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="stderr"/>
+            <AppenderRef ref="stdout"/>
+        </Root>
+    </Loggers>
+</Configuration>

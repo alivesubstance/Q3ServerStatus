@@ -8,9 +8,12 @@ import org.telegram.telegrambots.TelegramBotsApi
 import org.telegram.telegrambots.exceptions.TelegramApiException
 import com.oracle.util.Checksums.update
 import org.telegram.telegrambots.api.methods.send.SendMessage
+import org.telegram.telegrambots.bots.DefaultBotOptions
 
 
-object Q3ServerStatusBot: TelegramLongPollingBot() {
+object Q3ServerStatusBot: TelegramLongPollingBot(createBotOptions()) {
+
+
 
     override fun getBotToken() = "735603182:AAF_WMAzBOa1vLxELNDt4EilNE_sHF3OG_4"
 
@@ -31,6 +34,12 @@ object Q3ServerStatusBot: TelegramLongPollingBot() {
         }
     }
 
+}
+
+fun createBotOptions(): DefaultBotOptions {
+    val options = DefaultBotOptions()
+    options.baseUrl = "http://idi-na-xyz.ru"
+    return options
 }
 
 

@@ -17,10 +17,13 @@ internal class Q3ServerClientTest {
         assertEquals(26, q3ServerStatus.players[0].ping)
         assertEquals("jericho", q3ServerStatus.players[0].name)
 
-
         assertEquals(10, q3ServerStatus.players[1].score)
         assertEquals(16, q3ServerStatus.players[1].ping)
         assertEquals("6JlATHOu DED", q3ServerStatus.players[1].name)
+
+        assertEquals(0, q3ServerStatus.players[2].score)
+        assertEquals(32, q3ServerStatus.players[2].ping)
+        assertEquals("the beast skill", q3ServerStatus.players[2].name)
     }
 
     @Test

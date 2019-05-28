@@ -10,14 +10,24 @@ class Q3ServerClient {
     companion object {
         val log = LoggerFactory.getLogger(Q3ServerClient::class.java)!!
         const val MAPNAME_OPTION: String = "mapname"
+        const val DEFAULT_PORT: String = "27960"
     }
 
-    fun getServerStatus(host: String, port: Int): Q3ServerStatus {
-        val q3ServerResponse = runCommand(host, port)
+    fun getServerStatus(hostPort: String): Q3ServerStatus {
+        val (host, port) = findHostPort(hostPort)
+        val q3ServerResponse = runCommand(host, Integer.parseInt(port))
 
-        log.info("Response for {}:{}:\n{}", host, port, q3ServerResponse)
+        log.trace("Response for {}:{}:\n{}", host, port, q3ServerResponse)
 
         return parseResponse(q3ServerResponse)
+    }
+
+    private fun findHostPort(hostPort: String): List<String> {
+        if (hostPort.contains(":")) {
+            return hostPort.split(":")
+        }
+
+        return listOf(hostPort, DEFAULT_PORT)
     }
 
     @VisibleForTesting
@@ -33,17 +43,21 @@ class Q3ServerClient {
     }
 
     private fun parsePlayers(lines: List<String>): List<Player> {
-        if (lines.size <= 2) {
+        if (lines.size <= 2 || lines[2].isEmpty()) {
             return listOf()
         }
 
         // players list starts from the third string
-        return lines.subList(2, lines.size).map { parsePlayer(it) }
+        return lines.subList(2, lines.size)
+            .filter { it.isNotEmpty() }
+            .map { parsePlayer(it) }
     }
 
     private fun parsePlayer(player: String): Player {
         // player string consist of score, ping and name separated by space
         val stats = player.split(" ")
+
+        log.trace("Parsing player $player")
 
         // some name can be separated by space too. join all parts except score and ping
         val name = stats.subList(2, stats.size)
@@ -82,9 +96,3 @@ data class Q3ServerStatus(val map: String, val players: List<Player>) {
 }
 
 data class Player(val score: Int, val ping: Int, val name: String)
-
-fun main(args: Array<String>) {
-    val q3ServerClient = Q3ServerClient()
-    val serverStatus = q3ServerClient.getServerStatus("q3.playground.ru", 27961)
-    print(serverStatus)
-}

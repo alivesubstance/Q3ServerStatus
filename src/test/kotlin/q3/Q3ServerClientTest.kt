@@ -1,6 +1,6 @@
 package q3
 
-import junit.framework.Assert.assertEquals
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 internal class Q3ServerClientTest {

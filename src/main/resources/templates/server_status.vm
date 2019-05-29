@@ -1,6 +1,8 @@
-*$status.map*
-'''
+Map *$status.map*
+
+Players
+```
 #foreach($p in $status.players)
 $p.name
 #end
-'''
+```

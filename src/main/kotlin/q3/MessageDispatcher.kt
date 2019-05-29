@@ -1,6 +1,8 @@
 package q3
 
+import org.telegram.telegrambots.meta.api.methods.BotApiMethod
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage
+import org.telegram.telegrambots.meta.api.objects.Message
 import org.telegram.telegrambots.meta.api.objects.Update
 import q3.commands.Command
 import q3.commands.Q3ServerStatusCommand
@@ -12,7 +14,7 @@ object MessageDispatcher {
         Pair("status", Q3ServerStatusCommand)
     )
 
-    fun dispatch(update: Update): SendMessage? {
+    fun dispatch(update: Update): BotApiMethod<Message>? {
         val text = update.message.text
         if (text == null || text.isEmpty()) {
             return null
@@ -28,8 +30,7 @@ object MessageDispatcher {
             return SendMessage(chatId, "Unknown command '$text'")
         }
 
-        val response = commands[cmd]?.execute(args)
-        return SendMessage(update.message.chatId, response)
+        return commands[cmd]?.execute(update, args)
     }
 
     private fun parseCommandText(text: String): List<String> {

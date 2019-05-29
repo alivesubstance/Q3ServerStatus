@@ -62,7 +62,8 @@ class Q3ServerClient {
         // some name can be separated by space too. join all parts except score and ping
         val name = stats.subList(2, stats.size)
             .joinToString(separator = " ")
-            .replace(Regex("\\^\\d"), "")
+            .replace(Regex("\\^x[\\da-f]{6}"), "")
+            .replace(Regex("\\^[\\d\\w]"), "")
             .replace("\"", "")
 
         return Player(stats[0].toInt(), stats[1].toInt(), name)

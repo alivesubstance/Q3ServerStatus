@@ -11,7 +11,7 @@ internal class Q3ServerClientTest {
         val q3ServerStatus = Q3ServerClient().parseResponse(serverResponse)
         assertEquals("pro-q3tourney7", q3ServerStatus.map)
 
-        assertEquals(2, q3ServerStatus.players.size)
+        assertEquals(3, q3ServerStatus.players.size)
 
         assertEquals(0, q3ServerStatus.players[0].score)
         assertEquals(26, q3ServerStatus.players[0].ping)

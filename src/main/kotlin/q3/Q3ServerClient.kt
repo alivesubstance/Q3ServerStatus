@@ -90,10 +90,3 @@ class Q3ServerClient {
 
 }
 
-data class Q3ServerStatus(val map: String, val players: List<Player>) {
-    override fun toString(): String {
-        return "Q3ServerStatus(map='$map', players=$players)"
-    }
-}
-
-data class Player(val score: Int, val ping: Int, val name: String)

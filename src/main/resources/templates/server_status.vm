@@ -1,0 +1,6 @@
+*$status.map*
+'''
+#foreach($p in $status.players)
+$p.name
+#end
+'''

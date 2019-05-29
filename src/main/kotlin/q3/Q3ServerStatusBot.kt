@@ -17,7 +17,7 @@ object Q3ServerStatusBot: TelegramLongPollingBot(createBotOptions()) {
 
     override fun onUpdateReceived(update: Update) {
         if (update.hasMessage() && update.message.hasText()) {
-            val message = MessageProcessor.process(update)
+            val message = MessageDispatcher.dispatch(update) ?: return
 
             try {
                 sendApiMethod(message)
